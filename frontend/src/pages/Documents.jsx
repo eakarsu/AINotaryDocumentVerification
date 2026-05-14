@@ -5,6 +5,7 @@ import DetailModal from '../components/DetailModal'
 import FormModal from '../components/FormModal'
 import DeleteConfirm from '../components/DeleteConfirm'
 import AIResultDisplay from '../components/AIResultDisplay'
+import UploadDocument from '../components/UploadDocument'
 
 const ENDPOINT = '/documents'
 
@@ -29,6 +30,7 @@ const formFields = [
 
 export default function Documents() {
   const [data, setData] = useState([])
+  const [pagination, setPagination] = useState({ page: 1, limit: 20, total: 0, totalPages: 1 })
   const [selected, setSelected] = useState(null)
   const [showDetail, setShowDetail] = useState(false)
   const [showForm, setShowForm] = useState(false)
@@ -36,17 +38,35 @@ export default function Documents() {
   const [showDelete, setShowDelete] = useState(false)
   const [aiResult, setAiResult] = useState(null)
   const [aiLoading, setAiLoading] = useState(false)
+  const [docAiAnalyses, setDocAiAnalyses] = useState({}) // document_id -> analyses array
+  const [showUpload, setShowUpload] = useState(false)
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (page = 1) => {
     try {
-      const res = await api.get(ENDPOINT)
-      setData(Array.isArray(res.data) ? res.data : res.data.data || [])
+      const res = await api.get(`${ENDPOINT}?page=${page}&limit=${pagination.limit}`)
+      const rows = Array.isArray(res.data) ? res.data : res.data.data || []
+      setData(rows)
+      if (res.data.pagination) setPagination(res.data.pagination)
     } catch { setData([]) }
-  }, [])
+  }, [pagination.limit])
 
-  useEffect(() => { fetchData() }, [fetchData])
+  useEffect(() => { fetchData(1) }, [fetchData])
 
-  const handleRowClick = (row) => { setSelected(row); setShowDetail(true); setAiResult(null) }
+  const fetchDocAnalyses = async (docId) => {
+    try {
+      const res = await api.get(`/ai-analyses?document_id=${docId}`)
+      const analyses = Array.isArray(res.data) ? res.data : res.data.data || []
+      setDocAiAnalyses(prev => ({ ...prev, [docId]: analyses }))
+    } catch {}
+  }
+
+  const handleRowClick = (row) => {
+    setSelected(row)
+    setShowDetail(true)
+    setAiResult(null)
+    fetchDocAnalyses(row.id)
+  }
+
   const handleCreate = () => { setEditing(null); setShowForm(true) }
   const handleEdit = () => { setEditing(selected); setShowDetail(false); setShowForm(true) }
   const handleDeleteClick = () => { setShowDelete(true) }
@@ -59,7 +79,7 @@ export default function Documents() {
         await api.post(ENDPOINT, formData)
       }
       setShowForm(false)
-      fetchData()
+      fetchData(pagination.page)
     } catch (err) { alert(err.response?.data?.message || 'Error saving record') }
   }
 
@@ -69,7 +89,7 @@ export default function Documents() {
       setShowDelete(false)
       setShowDetail(false)
       setSelected(null)
-      fetchData()
+      fetchData(pagination.page)
     } catch (err) { alert(err.response?.data?.message || 'Error deleting record') }
   }
 
@@ -83,6 +103,8 @@ export default function Documents() {
         analysis_type: 'comprehensive'
       })
       setAiResult(res.data)
+      // Refresh analyses for this doc
+      fetchDocAnalyses(doc.id)
     } catch (err) {
       setAiResult({ summary: 'Analysis failed: ' + (err.response?.data?.message || err.message), risk_level: 'high' })
     } finally { setAiLoading(false) }
@@ -92,19 +114,39 @@ export default function Documents() {
     <div className="feature-page">
       <div className="page-header">
         <h1>{'\u{1F4C4}'} Documents</h1>
-        <button className="btn btn-primary" onClick={handleCreate}>+ Add New</button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button className="btn btn-ai" onClick={() => setShowUpload(!showUpload)}>
+            {showUpload ? 'Hide Upload' : '\u{1F4E4} Upload & Analyze'}
+          </button>
+          <button className="btn btn-primary" onClick={handleCreate}>+ Add New</button>
+        </div>
       </div>
+
+      {showUpload && (
+        <div className="upload-panel-wrapper" style={{ marginBottom: 20, padding: 20, background: '#f8f9fa', borderRadius: 8, border: '1px solid #e0e0e0' }}>
+          <UploadDocument onUploaded={() => { fetchData(1); setShowUpload(false) }} />
+        </div>
+      )}
 
       <DataTable
         columns={columns}
         data={data}
         onRowClick={handleRowClick}
         actions={(row) => (
-          <button className="btn btn-sm btn-ai" onClick={() => { setSelected(row); setShowDetail(true); handleAIAnalyze(row) }}>
+          <button className="btn btn-sm btn-ai" onClick={(e) => { e.stopPropagation(); setSelected(row); setShowDetail(true); handleAIAnalyze(row) }}>
             AI Analyze
           </button>
         )}
       />
+
+      {/* Pagination */}
+      {pagination.totalPages > 1 && (
+        <div className="pagination">
+          <button className="btn btn-sm" disabled={pagination.page <= 1} onClick={() => fetchData(pagination.page - 1)}>&laquo; Prev</button>
+          <span className="pagination-info">Page {pagination.page} of {pagination.totalPages} ({pagination.total} total)</span>
+          <button className="btn btn-sm" disabled={pagination.page >= pagination.totalPages} onClick={() => fetchData(pagination.page + 1)}>Next &raquo;</button>
+        </div>
+      )}
 
       {showDetail && selected && (
         <DetailModal
@@ -128,6 +170,29 @@ export default function Documents() {
             </button>
             <AIResultDisplay result={aiResult} loading={aiLoading} />
           </div>
+
+          {/* Previous AI analyses for this document */}
+          {docAiAnalyses[selected?.id]?.length > 0 && (
+            <div className="prev-analyses" style={{ marginTop: 20 }}>
+              <h4 style={{ marginBottom: 8 }}>Previous AI Analyses ({docAiAnalyses[selected.id].length})</h4>
+              {docAiAnalyses[selected.id].slice(0, 3).map(a => (
+                <div key={a.id} style={{ padding: '8px 12px', background: '#f8f9fa', borderRadius: 6, marginBottom: 8, fontSize: '0.85rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                    <span><strong>{a.analysis_type}</strong></span>
+                    <span style={{ color: '#888' }}>{new Date(a.created_at).toLocaleDateString()}</span>
+                  </div>
+                  {a.result_parsed?.summary && (
+                    <p style={{ margin: 0, color: '#555' }}>{a.result_parsed.summary}</p>
+                  )}
+                  {a.result_parsed?.risk_level && (
+                    <span className={`status-badge status-${a.result_parsed.risk_level}`} style={{ marginTop: 4, display: 'inline-block' }}>
+                      Risk: {a.result_parsed.risk_level}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </DetailModal>
       )}
 

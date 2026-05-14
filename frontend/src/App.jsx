@@ -26,7 +26,26 @@ import FeeCalculator from './pages/FeeCalculator'
 import Witnesses from './pages/Witnesses'
 import Bookmarks from './pages/Bookmarks'
 import Help from './pages/Help'
+import AIHistory from './pages/AIHistory'
+import JurisdictionRules from './pages/JurisdictionRules'
+import AIRiskAnalysis from './pages/AIRiskAnalysis'
 
+// // === Batch 06 Gaps & Frontend Mounts ===
+import CFAgenticComplianceMonitoringPage from './pages/CFAgenticComplianceMonitoringPage';
+import CFMultiDocumentCorrelationPage from './pages/CFMultiDocumentCorrelationPage';
+import CFESignatureIntegrationPage from './pages/CFESignatureIntegrationPage';
+import CFVideoAttestationPage from './pages/CFVideoAttestationPage';
+import CFNotaryMarketplacePage from './pages/CFNotaryMarketplacePage';
+import GapWitnessesTrackedButNoWitnessPage from './pages/GapWitnessesTrackedButNoWitnessPage';
+import GapPaymentsRecordedButNoFeePage from './pages/GapPaymentsRecordedButNoFeePage';
+import GapClientsExistWithoutClientPage from './pages/GapClientsExistWithoutClientPage';
+import GapNoTemplatePage from './pages/GapNoTemplatePage';
+import GapLimitedEPage from './pages/GapLimitedEPage';
+import GapNoBackgroundCheckServiceConnectorForIdentityPage from './pages/GapNoBackgroundCheckServiceConnectorForIdentityPage';
+import GapNoBulkImportOfDocumentsPdfBatchProcessingPage from './pages/GapNoBulkImportOfDocumentsPdfBatchProcessingPage';
+import GapLimitedIntegrationWithStateNotaryBoardsNoLiPage from './pages/GapLimitedIntegrationWithStateNotaryBoardsNoLiPage';
+import GapNoWebhooksForExternalTriggersEGNewClientCPage from './pages/GapNoWebhooksForExternalTriggersEGNewClientCPage';
+import GapNoMobilePage from './pages/GapNoMobilePage';
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth()
   if (loading) return <div className="loading-screen"><div className="ai-spinner" /><p>Loading...</p></div>
@@ -42,7 +61,24 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Navigate to="/login" />} />
-      </Routes>
+      
+          {/* // === Batch 06 Gaps & Frontend Mounts === */}
+          <Route path="/cf-agentic-compliance-monitoring" element={<CFAgenticComplianceMonitoringPage />} />
+          <Route path="/cf-multi-document-correlation" element={<CFMultiDocumentCorrelationPage />} />
+          <Route path="/cf-e-signature-integration" element={<CFESignatureIntegrationPage />} />
+          <Route path="/cf-video-attestation" element={<CFVideoAttestationPage />} />
+          <Route path="/cf-notary-marketplace" element={<CFNotaryMarketplacePage />} />
+          <Route path="/gap-witnesses-tracked-but-no-witness" element={<GapWitnessesTrackedButNoWitnessPage />} />
+          <Route path="/gap-payments-recorded-but-no-fee" element={<GapPaymentsRecordedButNoFeePage />} />
+          <Route path="/gap-clients-exist-without-client" element={<GapClientsExistWithoutClientPage />} />
+          <Route path="/gap-no-template" element={<GapNoTemplatePage />} />
+          <Route path="/gap-limited-e" element={<GapLimitedEPage />} />
+          <Route path="/gap-no-background-check-service-connector-for-identity" element={<GapNoBackgroundCheckServiceConnectorForIdentityPage />} />
+          <Route path="/gap-no-bulk-import-of-documents-pdf-batch-processing" element={<GapNoBulkImportOfDocumentsPdfBatchProcessingPage />} />
+          <Route path="/gap-limited-integration-with-state-notary-boards-no-li" element={<GapLimitedIntegrationWithStateNotaryBoardsNoLiPage />} />
+          <Route path="/gap-no-webhooks-for-external-triggers-e-g-new-client-c" element={<GapNoWebhooksForExternalTriggersEGNewClientCPage />} />
+          <Route path="/gap-no-mobile" element={<GapNoMobilePage />} />
+        </Routes>
     )
   }
 
@@ -75,6 +111,9 @@ export default function App() {
             <Route path="/witnesses" element={<ProtectedRoute><Witnesses /></ProtectedRoute>} />
             <Route path="/bookmarks" element={<ProtectedRoute><Bookmarks /></ProtectedRoute>} />
             <Route path="/help" element={<ProtectedRoute><Help /></ProtectedRoute>} />
+            <Route path="/ai-history" element={<ProtectedRoute><AIHistory /></ProtectedRoute>} />
+            <Route path="/jurisdiction-rules" element={<ProtectedRoute><JurisdictionRules /></ProtectedRoute>} />
+            <Route path="/ai-risk-analysis" element={<ProtectedRoute><AIRiskAnalysis /></ProtectedRoute>} />
             <Route path="/login" element={<Navigate to="/" />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

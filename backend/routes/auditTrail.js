@@ -5,20 +5,31 @@ const auth = require('../middleware/auth');
 
 router.use(auth);
 
-// GET /api/audit-trail
+// GET /api/audit-trail - scoped to logged-in user, with pagination
 router.get('/', async (req, res) => {
   try {
-    const { action, entity_type, user_id } = req.query;
-    let query = 'SELECT at.*, u.name as user_name FROM audit_trail at LEFT JOIN users u ON at.user_id = u.id WHERE 1=1';
-    const params = [];
+    const { action, entity_type } = req.query;
+    const page = Math.max(1, parseInt(req.query.page) || 1);
+    const limit = Math.min(100, parseInt(req.query.limit) || 20);
+    const offset = (page - 1) * limit;
+
+    let query = 'SELECT at.*, u.name as user_name FROM audit_trail at LEFT JOIN users u ON at.user_id = u.id WHERE at.user_id = $1';
+    const params = [req.user.id];
 
     if (action) { params.push(action); query += ` AND at.action = $${params.length}`; }
     if (entity_type) { params.push(entity_type); query += ` AND at.entity_type = $${params.length}`; }
-    if (user_id) { params.push(user_id); query += ` AND at.user_id = $${params.length}`; }
 
-    query += ' ORDER BY at.created_at DESC';
+    const countResult = await pool.query('SELECT COUNT(*) FROM audit_trail WHERE user_id = $1', [req.user.id]);
+    const total = parseInt(countResult.rows[0].count);
+
+    query += ' ORDER BY at.created_at DESC LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
+    params.push(limit, offset);
+
     const result = await pool.query(query, params);
-    res.json(result.rows);
+    res.json({
+      data: result.rows,
+      pagination: { page, limit, total, totalPages: Math.ceil(total / limit) },
+    });
   } catch (err) {
     console.error('Error fetching audit trail:', err);
     res.status(500).json({ error: 'Failed to fetch audit trail' });
