@@ -5,19 +5,34 @@ const auth = require('../middleware/auth');
 
 router.use(auth);
 
-// GET /api/ai-analyses
+// GET /api/ai-analyses - scoped to logged-in user, with pagination
 router.get('/', async (req, res) => {
   try {
     const { analysis_type, document_id } = req.query;
-    let query = 'SELECT aa.*, d.title as document_title FROM ai_analyses aa LEFT JOIN documents d ON aa.document_id = d.id WHERE 1=1';
-    const params = [];
+    const page = Math.max(1, parseInt(req.query.page) || 1);
+    const limit = Math.min(100, parseInt(req.query.limit) || 20);
+    const offset = (page - 1) * limit;
+
+    let query = 'SELECT aa.*, d.title as document_title FROM ai_analyses aa LEFT JOIN documents d ON aa.document_id = d.id WHERE aa.user_id = $1';
+    const params = [req.user.id];
 
     if (analysis_type) { params.push(analysis_type); query += ` AND aa.analysis_type = $${params.length}`; }
     if (document_id) { params.push(document_id); query += ` AND aa.document_id = $${params.length}`; }
 
-    query += ' ORDER BY aa.created_at DESC';
+    const countResult = await pool.query(
+      'SELECT COUNT(*) FROM ai_analyses WHERE user_id = $1',
+      [req.user.id]
+    );
+    const total = parseInt(countResult.rows[0].count);
+
+    query += ' ORDER BY aa.created_at DESC LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
+    params.push(limit, offset);
+
     const result = await pool.query(query, params);
-    res.json(result.rows);
+    res.json({
+      data: result.rows,
+      pagination: { page, limit, total, totalPages: Math.ceil(total / limit) },
+    });
   } catch (err) {
     console.error('Error fetching AI analyses:', err);
     res.status(500).json({ error: 'Failed to fetch AI analyses' });

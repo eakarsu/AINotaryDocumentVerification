@@ -22,6 +22,10 @@ const menuItems = [
   { path: '/bookmarks', label: 'Bookmarks', icon: '\u{2B50}' },
   { path: '/search', label: 'Search', icon: '\u{1F50D}' },
   { path: '/help', label: 'Help Center', icon: '\u{2753}' },
+  { path: '/ai-history', label: 'AI History', icon: '\u{1F4CA}' },
+  { path: '/jurisdiction-rules', label: 'Jurisdiction Rules', icon: '\u{2696}️' },
+  { path: '/ai-risk-analysis', label: 'AI Risk Analysis', icon: '\u{1F50E}' },
+  { path: '/custom-views', label: 'Notary Views', icon: '\u{1F4CC}' },
 ]
 
 export default function Sidebar({ collapsed }) {

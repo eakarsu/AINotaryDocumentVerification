@@ -31,20 +31,22 @@ const formFields = [
 
 export default function Notarizations() {
   const [data, setData] = useState([])
+  const [pagination, setPagination] = useState({ page: 1, limit: 20, total: 0, totalPages: 1 })
   const [selected, setSelected] = useState(null)
   const [showDetail, setShowDetail] = useState(false)
   const [showForm, setShowForm] = useState(false)
   const [editing, setEditing] = useState(null)
   const [showDelete, setShowDelete] = useState(false)
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (page = 1) => {
     try {
-      const res = await api.get(ENDPOINT)
+      const res = await api.get(`${ENDPOINT}?page=${page}&limit=20`)
       setData(Array.isArray(res.data) ? res.data : res.data.data || [])
+      if (res.data.pagination) setPagination(res.data.pagination)
     } catch { setData([]) }
   }, [])
 
-  useEffect(() => { fetchData() }, [fetchData])
+  useEffect(() => { fetchData(1) }, [fetchData])
 
   const handleRowClick = (row) => { setSelected(row); setShowDetail(true) }
   const handleCreate = () => { setEditing(null); setShowForm(true) }
@@ -55,14 +57,14 @@ export default function Notarizations() {
     try {
       if (editing?.id) await api.put(`${ENDPOINT}/${editing.id}`, formData)
       else await api.post(ENDPOINT, formData)
-      setShowForm(false); fetchData()
+      setShowForm(false); fetchData(pagination.page)
     } catch (err) { alert(err.response?.data?.message || 'Error saving') }
   }
 
   const handleDelete = async () => {
     try {
       await api.delete(`${ENDPOINT}/${selected.id}`)
-      setShowDelete(false); setShowDetail(false); setSelected(null); fetchData()
+      setShowDelete(false); setShowDetail(false); setSelected(null); fetchData(pagination.page)
     } catch (err) { alert(err.response?.data?.message || 'Error deleting') }
   }
 
@@ -73,6 +75,13 @@ export default function Notarizations() {
         <button className="btn btn-primary" onClick={handleCreate}>+ Add New</button>
       </div>
       <DataTable columns={columns} data={data} onRowClick={handleRowClick} />
+      {pagination.totalPages > 1 && (
+        <div className="pagination">
+          <button className="btn btn-sm" disabled={pagination.page <= 1} onClick={() => fetchData(pagination.page - 1)}>&laquo; Prev</button>
+          <span className="pagination-info">Page {pagination.page} of {pagination.totalPages} ({pagination.total} total)</span>
+          <button className="btn btn-sm" disabled={pagination.page >= pagination.totalPages} onClick={() => fetchData(pagination.page + 1)}>Next &raquo;</button>
+        </div>
+      )}
       {showDetail && selected && (
         <DetailModal title={`Notarization: ${selected.document_title || selected.id}`} data={selected} onClose={() => setShowDetail(false)} onEdit={handleEdit} onDelete={handleDeleteClick} />
       )}

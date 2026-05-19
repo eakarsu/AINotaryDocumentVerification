@@ -1,12 +1,23 @@
 require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
+
+if (!process.env.JWT_SECRET) {
+  console.error('FATAL: JWT_SECRET environment variable is not set. Exiting.');
+  process.exit(1);
+}
+
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 
 const app = express();
 const PORT = process.env.BACKEND_PORT || 3001;
 
-// Middleware
-app.use(cors({ origin: 'http://localhost:3000' }));
+// Security middleware
+app.use(helmet());
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -45,6 +56,7 @@ const witnessRoutes = require('./routes/witnesses');
 const bookmarkRoutes = require('./routes/bookmarks');
 const noteRoutes = require('./routes/notes');
 const exportRoutes = require('./routes/export');
+const jurisdictionRulesRoutes = require('./routes/jurisdictionRules');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/documents', documentRoutes);
@@ -69,6 +81,10 @@ app.use('/api/witnesses', witnessRoutes);
 app.use('/api/bookmarks', bookmarkRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/export', exportRoutes);
+app.use('/api/jurisdiction-rules', jurisdictionRulesRoutes);
+
+// === Custom Views (4 endpoints) — mounted BEFORE 404 handler ===
+app.use('/api/custom-views', require('./routes/customViews'));
 
 // 404 handler
 app.use((req, res) => {
@@ -80,6 +96,27 @@ app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
   res.status(500).json({ error: 'Internal server error' });
 });
+
+
+// === Custom Feature Mounts (batch_06) ===
+app.use('/api/cf-agentic-compliance-monitoring', require('./routes/customFeat01_AgenticComplianceMonitoring'));
+app.use('/api/cf-multi-document-correlation', require('./routes/customFeat02_MultiDocumentCorrelation'));
+app.use('/api/cf-e-signature-integration', require('./routes/customFeat03_ESignatureIntegration'));
+app.use('/api/cf-video-attestation', require('./routes/customFeat04_VideoAttestation'));
+app.use('/api/cf-notary-marketplace', require('./routes/customFeat05_NotaryMarketplace'));
+
+
+// === Batch 06 Gaps & Frontend Mounts ===
+app.use('/api/gap-witnesses-tracked-but-no-witness', require('./routes/gapFeat_witnesses_tracked_but_no_witness'));
+app.use('/api/gap-payments-recorded-but-no-fee', require('./routes/gapFeat_payments_recorded_but_no_fee'));
+app.use('/api/gap-clients-exist-without-client', require('./routes/gapFeat_clients_exist_without_client'));
+app.use('/api/gap-no-template', require('./routes/gapFeat_no_template'));
+app.use('/api/gap-limited-e', require('./routes/gapFeat_limited_e'));
+app.use('/api/gap-no-background-check-service-connector-for-identity', require('./routes/gapFeat_no_background_check_service_connector_for_identity'));
+app.use('/api/gap-no-bulk-import-of-documents-pdf-batch-processing', require('./routes/gapFeat_no_bulk_import_of_documents_pdf_batch_processing'));
+app.use('/api/gap-limited-integration-with-state-notary-boards-no-li', require('./routes/gapFeat_limited_integration_with_state_notary_boards_no_li'));
+app.use('/api/gap-no-webhooks-for-external-triggers-e-g-new-client-c', require('./routes/gapFeat_no_webhooks_for_external_triggers_e_g_new_client_c'));
+app.use('/api/gap-no-mobile', require('./routes/gapFeat_no_mobile'));
 
 app.listen(PORT, () => {
   console.log(`AI Notary Backend running on port ${PORT}`);
