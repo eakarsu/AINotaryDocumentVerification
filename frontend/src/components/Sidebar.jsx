@@ -25,6 +25,7 @@ const menuItems = [
   { path: '/ai-history', label: 'AI History', icon: '\u{1F4CA}' },
   { path: '/jurisdiction-rules', label: 'Jurisdiction Rules', icon: '\u{2696}️' },
   { path: '/ai-risk-analysis', label: 'AI Risk Analysis', icon: '\u{1F50E}' },
+  { path: '/custom-views', label: 'Notary Views', icon: '\u{1F4CC}' },
 ]
 
 export default function Sidebar({ collapsed }) {

@@ -83,6 +83,9 @@ app.use('/api/notes', noteRoutes);
 app.use('/api/export', exportRoutes);
 app.use('/api/jurisdiction-rules', jurisdictionRulesRoutes);
 
+// === Custom Views (4 endpoints) — mounted BEFORE 404 handler ===
+app.use('/api/custom-views', require('./routes/customViews'));
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });

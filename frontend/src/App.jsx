@@ -29,6 +29,7 @@ import Help from './pages/Help'
 import AIHistory from './pages/AIHistory'
 import JurisdictionRules from './pages/JurisdictionRules'
 import AIRiskAnalysis from './pages/AIRiskAnalysis'
+import CustomViewsPage from './pages/CustomViewsPage'
 
 // // === Batch 06 Gaps & Frontend Mounts ===
 import CFAgenticComplianceMonitoringPage from './pages/CFAgenticComplianceMonitoringPage';
@@ -114,6 +115,7 @@ export default function App() {
             <Route path="/ai-history" element={<ProtectedRoute><AIHistory /></ProtectedRoute>} />
             <Route path="/jurisdiction-rules" element={<ProtectedRoute><JurisdictionRules /></ProtectedRoute>} />
             <Route path="/ai-risk-analysis" element={<ProtectedRoute><AIRiskAnalysis /></ProtectedRoute>} />
+            <Route path="/custom-views" element={<ProtectedRoute><CustomViewsPage /></ProtectedRoute>} />
             <Route path="/login" element={<Navigate to="/" />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
