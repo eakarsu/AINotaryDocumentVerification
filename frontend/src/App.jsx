@@ -47,6 +47,11 @@ import GapNoBulkImportOfDocumentsPdfBatchProcessingPage from './pages/GapNoBulkI
 import GapLimitedIntegrationWithStateNotaryBoardsNoLiPage from './pages/GapLimitedIntegrationWithStateNotaryBoardsNoLiPage';
 import GapNoWebhooksForExternalTriggersEGNewClientCPage from './pages/GapNoWebhooksForExternalTriggersEGNewClientCPage';
 import GapNoMobilePage from './pages/GapNoMobilePage';
+import CodexCustomVizFeature from './pages/CodexCustomVizFeature';
+import CodexOperationsFeature from './pages/CodexOperationsFeature';
+
+import TimelineView from './pages/TimelineView';
+
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth()
   if (loading) return <div className="loading-screen"><div className="ai-spinner" /><p>Loading...</p></div>
@@ -60,6 +65,10 @@ export default function App() {
   if (!isAuthenticated) {
     return (
       <Routes>
+        <Route path="/insights/timeline" element={<ProtectedRoute><TimelineView /></ProtectedRoute>} />
+        <Route path="/codex/custom-viz" element={<ProtectedRoute><CodexCustomVizFeature /></ProtectedRoute>} />
+        <Route path="/codex/operations" element={<ProtectedRoute><CodexOperationsFeature /></ProtectedRoute>} />
+
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Navigate to="/login" />} />
       
