@@ -1,0 +1,5 @@
+# Governed notary verification matter
+The durable path is `/api/governed-notary-matters`. Matters bind authoritative document/rule versions, jurisdiction/effective dates, identity receipts, source conflicts, privilege/redaction, deadlines, accountable review, signed delivery, adverse holds, legal holds, tenant scope, immutable evidence, and retention.
+Apply `backend/migrations/001_governed_notary_matter.sql` separately. Registries, identity/background checks, matter/document systems, filing/e-signature, and notification adapters remain receipt-only and unconfigured pending credentials, signed delivery/replay contracts, reviewed fixtures, commissioned-notary approval, and counsel. Generated connector/provider routes are quarantined.
+The deterministic layer provides no legal advice, identity adjudication, notarization, or filing decision. Missing/stale/conflicting/privileged/redaction/deadline evidence holds the matter.
+Use `.env.example`; keep provider/demo/bootstrap flags false. Verify with `node --test backend/governance/*.test.cjs` and `bash -n start.sh`. Startup is nondestructive.

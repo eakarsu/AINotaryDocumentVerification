@@ -8,18 +8,21 @@ if (!process.env.JWT_SECRET) {
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const {validateRuntime}=require('./governance/runtime');
+const {createProviderGate}=require('./governance/providerGate');
+const governanceRouter=require('./governance/router');
+validateRuntime();
 
 const app = express();
 const PORT = process.env.BACKEND_PORT || 3001;
 
 // Security middleware
 app.use(helmet());
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  credentials: true,
-}));
+const allowedOrigins=String(process.env.CORS_ORIGINS||process.env.CLIENT_URL||'http://localhost:3000').split(',').map(v=>v.trim()).filter(Boolean);
+app.use(cors({origin:(origin,cb)=>!origin||allowedOrigins.includes(origin)?cb(null,true):cb(new Error('Origin not allowed by CORS')),credentials:true}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use(createProviderGate(['/api/ai','/api/gap','/api/cf-agentic-compliance-monitoring','/api/cf-multi-document-correlation','/api/cf-e-signature-integration','/api/cf-video-attestation','/api/cf-notary-marketplace']));
 
 // Request logging
 app.use((req, res, next) => {
@@ -85,6 +88,7 @@ app.use('/api/jurisdiction-rules', jurisdictionRulesRoutes);
 
 // === Custom Views (4 endpoints) — mounted BEFORE 404 handler ===
 app.use('/api/custom-views', require('./routes/customViews'));
+app.use('/api/governed-notary-matters',governanceRouter);
 
 // 404 handler
 app.use((req, res) => {
