@@ -8,6 +8,8 @@ if (!process.env.JWT_SECRET) {
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const bcrypt = require('bcryptjs');
+const pool = require('./db');
 const {validateRuntime}=require('./governance/runtime');
 const {createProviderGate}=require('./governance/providerGate');
 const governanceRouter=require('./governance/router');
@@ -22,7 +24,7 @@ const allowedOrigins=String(process.env.CORS_ORIGINS||process.env.CLIENT_URL||'h
 app.use(cors({origin:(origin,cb)=>!origin||allowedOrigins.includes(origin)?cb(null,true):cb(new Error('Origin not allowed by CORS')),credentials:true}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
-app.use(createProviderGate(['/api/ai','/api/gap','/api/cf-agentic-compliance-monitoring','/api/cf-multi-document-correlation','/api/cf-e-signature-integration','/api/cf-video-attestation','/api/cf-notary-marketplace']));
+app.use(createProviderGate(['/api/gap','/api/cf-agentic-compliance-monitoring','/api/cf-multi-document-correlation','/api/cf-e-signature-integration','/api/cf-video-attestation','/api/cf-notary-marketplace']));
 
 // Request logging
 app.use((req, res, next) => {
@@ -102,6 +104,7 @@ app.use((err, req, res, next) => {
 });
 
 
+if (process.env.ENABLE_GENERATED_ROUTES === 'true' && process.env.NODE_ENV !== 'production') {
 // === Custom Feature Mounts (batch_06) ===
 app.use('/api/cf-agentic-compliance-monitoring', require('./routes/customFeat01_AgenticComplianceMonitoring'));
 app.use('/api/cf-multi-document-correlation', require('./routes/customFeat02_MultiDocumentCorrelation'));
@@ -121,9 +124,43 @@ app.use('/api/gap-no-bulk-import-of-documents-pdf-batch-processing', require('./
 app.use('/api/gap-limited-integration-with-state-notary-boards-no-li', require('./routes/gapFeat_limited_integration_with_state_notary_boards_no_li'));
 app.use('/api/gap-no-webhooks-for-external-triggers-e-g-new-client-c', require('./routes/gapFeat_no_webhooks_for_external_triggers_e_g_new_client_c'));
 app.use('/api/gap-no-mobile', require('./routes/gapFeat_no_mobile'));
+}
 
-app.listen(PORT, () => {
-  console.log(`AI Notary Backend running on port ${PORT}`);
-});
+async function initializeRuntime() {
+  if (process.env.MIGRATE_ON_START !== 'true') return;
+  const email = process.env.PROVISION_ADMIN_EMAIL || process.env.ADMIN_EMAIL;
+  const password = process.env.PROVISION_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
+  if (!email || !password) throw new Error('Runtime admin credentials are required');
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      email VARCHAR UNIQUE NOT NULL,
+      password VARCHAR NOT NULL,
+      name VARCHAR NOT NULL,
+      role VARCHAR DEFAULT 'admin',
+      created_at TIMESTAMP DEFAULT NOW()
+    );
+    CREATE TABLE IF NOT EXISTS ai_analyses (
+      id SERIAL PRIMARY KEY,
+      document_id INTEGER,
+      analysis_type VARCHAR(100),
+      result TEXT,
+      result_parsed JSONB,
+      user_id INTEGER,
+      model VARCHAR(255),
+      processing_time NUMERIC,
+      created_at TIMESTAMP DEFAULT NOW()
+    );
+  `);
+  const passwordHash = await bcrypt.hash(password, 10);
+  await pool.query(
+    `INSERT INTO users(email,password,name,role) VALUES($1,$2,$3,'admin')
+     ON CONFLICT(email) DO UPDATE SET password=EXCLUDED.password,name=EXCLUDED.name,role=EXCLUDED.role`,
+    [email, passwordHash, process.env.PROVISION_ADMIN_NAME || 'Runtime Administrator']
+  );
+}
+initializeRuntime()
+  .then(() => app.listen(PORT, () => console.log(`AI Notary Backend running on port ${PORT}`)))
+  .catch((error) => { console.error('Runtime initialization failed:', error.message); process.exit(1); });
 
 module.exports = app;

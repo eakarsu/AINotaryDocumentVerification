@@ -10,6 +10,12 @@ port_free(){ if command -v lsof >/dev/null 2>&1 && lsof -ti ":$1" >/dev/null 2>&
 cleanup(){ for pid in "${CHILD_PIDS[@]:-}"; do [ -n "$pid" ] && kill "$pid" 2>/dev/null || true; done; }
 trap cleanup INT TERM EXIT
 require_file "$PROJECT_DIR/.env"
+set -a
+# shellcheck disable=SC1091
+. "$PROJECT_DIR/.env"
+set +a
+BACKEND_PORT="${BACKEND_PORT:-${PORT:-3001}}"
+FRONTEND_PORT="${FRONTEND_PORT:-3000}"
 require_dir "$PROJECT_DIR/backend/node_modules"
 require_dir "$PROJECT_DIR/frontend/node_modules"
 port_free "$BACKEND_PORT"
