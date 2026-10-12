@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import api from '../api/axios'
+import AIReport from '../components/AIReport'
 
 export default function AIHistory() {
   const [data, setData] = useState([])
@@ -11,7 +12,7 @@ export default function AIHistory() {
     setLoading(true)
     try {
       const res = await api.get(`/ai/history?page=${page}&limit=${pagination.limit}`)
-      setData(res.data.data || [])
+      setData(Array.isArray(res.data?.data) ? res.data.data : Array.isArray(res.data) ? res.data : [])
       if (res.data.pagination) setPagination(res.data.pagination)
     } catch {
       setData([])
@@ -73,11 +74,7 @@ export default function AIHistory() {
                       <tr key={`${row.id}-exp`}>
                         <td colSpan={8}>
                           <div className="ai-result-expanded">
-                            <pre style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem', maxHeight: 400, overflow: 'auto' }}>
-                              {row.result_parsed
-                                ? JSON.stringify(row.result_parsed, null, 2)
-                                : row.result || 'No result data'}
-                            </pre>
+                            <AIReport response={row.result_parsed ?? row.result ?? 'No result data'} title={row.analysis_type || 'Saved analysis'} />
                           </div>
                         </td>
                       </tr>

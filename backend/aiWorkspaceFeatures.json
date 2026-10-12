@@ -1,0 +1,302 @@
+[
+  {
+    "name": "CFAgenticComplianceMonitoringPage",
+    "id": "cf-agentic-compliance-monitoring",
+    "title": "Agentic compliance monitoring",
+    "description": "Prepare a professional advisory report for agentic compliance monitoring using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Agentic compliance monitoring for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Agentic compliance monitoring data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Agentic compliance monitoring.\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "CFESignatureIntegrationPage",
+    "id": "cf-e-signature-integration",
+    "title": "E-signature integration",
+    "description": "Prepare a professional advisory report for e-signature integration using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run E-signature integration for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this E-signature integration data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for E-signature integration.\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "CFMultiDocumentCorrelationPage",
+    "id": "cf-multi-document-correlation",
+    "title": "Multi-document correlation",
+    "description": "Prepare a professional advisory report for multi-document correlation using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Multi-document correlation for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Multi-document correlation data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Multi-document correlation.\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "CFNotaryMarketplacePage",
+    "id": "cf-notary-marketplace",
+    "title": "Notary marketplace",
+    "description": "Prepare a professional advisory report for notary marketplace using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Notary marketplace for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Notary marketplace data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Notary marketplace.\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "CFVideoAttestationPage",
+    "id": "cf-video-attestation",
+    "title": "Video attestation",
+    "description": "Prepare a professional advisory report for video attestation using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Video attestation for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Video attestation data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Video attestation.\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "GapClientsExistWithoutClientPage",
+    "id": "gap-clients-exist-without-client",
+    "title": "Clients exist without '/client",
+    "description": "Prepare a professional advisory report for clients exist without '/client using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Clients exist without '/client for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Clients exist without '/client data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Clients exist without '/client.\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "GapLimitedEPage",
+    "id": "gap-limited-e",
+    "title": "Limited e",
+    "description": "Prepare a professional advisory report for limited e using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Limited e for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Limited e data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Limited e.\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "GapLimitedIntegrationWithStateNotaryBoardsNoLiPage",
+    "id": "gap-limited-integration-with-state-notary-boards-no-li",
+    "title": "Limited integration with state notary boards (no license verification automation)",
+    "description": "Prepare a professional advisory report for limited integration with state notary boards (no license verification automation) using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Limited integration with state notary boards (no license verification automation) for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Limited integration with state notary boards (no license verification automation) data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Limited integration with state notary boards (no license verification automation).\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "GapNoBackgroundCheckServiceConnectorForIdentityPage",
+    "id": "gap-no-background-check-service-connector-for-identity",
+    "title": "No background check service connector (for identity verification)",
+    "description": "Prepare a professional advisory report for no background check service connector (for identity verification) using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run No background check service connector (for identity verification) for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this No background check service connector (for identity verification) data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for No background check service connector (for identity verification).\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "GapNoBulkImportOfDocumentsPdfBatchProcessingPage",
+    "id": "gap-no-bulk-import-of-documents-pdf-batch-processing",
+    "title": "No bulk import of documents (PDF batch processing)",
+    "description": "Prepare a professional advisory report for no bulk import of documents (pdf batch processing) using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run No bulk import of documents (PDF batch processing) for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this No bulk import of documents (PDF batch processing) data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for No bulk import of documents (PDF batch processing).\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "GapNoMobilePage",
+    "id": "gap-no-mobile",
+    "title": "No mobile",
+    "description": "Prepare a professional advisory report for no mobile using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run No mobile for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this No mobile data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for No mobile.\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "GapNoTemplatePage",
+    "id": "gap-no-template",
+    "title": "No '/template",
+    "description": "Prepare a professional advisory report for no '/template using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run No '/template for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this No '/template data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for No '/template.\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "GapNoWebhooksForExternalTriggersEGNewClientCPage",
+    "id": "gap-no-webhooks-for-external-triggers-e-g-new-client-c",
+    "title": "No webhooks for external triggers (e.g., new client created in CRM)",
+    "description": "Prepare a professional advisory report for no webhooks for external triggers (e.g., new client created in crm) using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run No webhooks for external triggers (e.g., new client created in CRM) for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this No webhooks for external triggers (e.g., new client created in CRM) data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for No webhooks for external triggers (e.g., new client created in CRM).\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "GapPaymentsRecordedButNoFeePage",
+    "id": "gap-payments-recorded-but-no-fee",
+    "title": "Payments recorded but no '/fee",
+    "description": "Prepare a professional advisory report for payments recorded but no '/fee using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Payments recorded but no '/fee for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Payments recorded but no '/fee data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Payments recorded but no '/fee.\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  },
+  {
+    "name": "GapWitnessesTrackedButNoWitnessPage",
+    "id": "gap-witnesses-tracked-but-no-witness",
+    "title": "Witnesses tracked but no '/witness",
+    "description": "Prepare a professional advisory report for witnesses tracked but no '/witness using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Witnesses tracked but no '/witness for a realistic customer case.\nContext: A mid-market operations team is under deadline pressure and needs an actionable recommendation.\nGoal: identify the best next steps, risks, assumptions, and expected business impact.\nOutput format: concise summary, prioritized actions, confidence level, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Witnesses tracked but no '/witness data sample.\nRecords:\n- Item A: high priority, owner unassigned, due this week, customer impact high\n- Item B: medium priority, owner assigned, blocked by missing information\n- Item C: low priority, recurring pattern, possible automation candidate\nReturn structured findings, anomalies, recommendations, and a short implementation plan."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Witnesses tracked but no '/witness.\nAudience: business owner and operations manager.\nInclude: what happened, why it matters, financial or operational impact, risks, and three decisions needed today.\nTone: professional, direct, and implementation-focused."
+      }
+    ]
+  }
+]

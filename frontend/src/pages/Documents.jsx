@@ -181,14 +181,7 @@ export default function Documents() {
                     <span><strong>{a.analysis_type}</strong></span>
                     <span style={{ color: '#888' }}>{new Date(a.created_at).toLocaleDateString()}</span>
                   </div>
-                  {a.result_parsed?.summary && (
-                    <p style={{ margin: 0, color: '#555' }}>{a.result_parsed.summary}</p>
-                  )}
-                  {a.result_parsed?.risk_level && (
-                    <span className={`status-badge status-${a.result_parsed.risk_level}`} style={{ marginTop: 4, display: 'inline-block' }}>
-                      Risk: {a.result_parsed.risk_level}
-                    </span>
-                  )}
+                  <AIResultDisplay result={a.result_parsed ?? a.result ?? 'No result data'} loading={false} />
                 </div>
               ))}
             </div>

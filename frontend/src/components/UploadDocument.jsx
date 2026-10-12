@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react'
 import api from '../api/axios'
+import FullFieldPresets from './FullFieldPresets'
+import AIReport from './AIReport'
 
 export default function UploadDocument({ onUploaded }) {
   const [mode, setMode] = useState('file') // 'file' | 'text'
@@ -58,6 +60,12 @@ export default function UploadDocument({ onUploaded }) {
         </button>
       </div>
 
+      <FullFieldPresets value={{ title, docType, textContent }} onChange={(next) => { setTitle(next.title); setDocType(next.docType); setTextContent(next.textContent); setMode('text'); setResult(null) }} presets={[
+        { label: 'Deed excerpt', values: { title: 'Sample property deed', docType: 'Deed', textContent: 'Morgan Lee grants the property at 42 Oak Street to Avery Chen. Consideration: $285,000. Verify legal description, signatures, acknowledgment, and recording requirements.' } },
+        { label: 'Affidavit excerpt', values: { title: 'Sample identity affidavit', docType: 'Affidavit', textContent: 'I, Jordan Rivera, state that the attached inventory is accurate to the best of my knowledge. Signed April 12, 2026, in Albany, New York. Confirm identity and notarial wording.' } },
+        { label: 'Power of attorney excerpt', values: { title: 'Sample limited power of attorney', docType: 'Power of Attorney', textContent: 'Priya Shah appoints Alex Morgan to manage the listed property and banking matters through December 31, 2026. Review scope, revocation, witnesses, and acknowledgment.' } },
+      ]} />
+      {mode === 'file' && <p>Select a genuine local file before uploading; examples switch to editable text and preserve any existing file selection.</p>}
       <form onSubmit={handleSubmit} className="upload-form">
         <div className="form-group">
           <label>Document Title</label>
@@ -109,33 +117,7 @@ export default function UploadDocument({ onUploaded }) {
               <div className="alert alert-success">
                 Document created: <strong>{result.document?.title}</strong> (ID: {result.document?.id})
               </div>
-              {result.analysis && (
-                <div className="ai-result-compact" style={{ marginTop: 12 }}>
-                  <h4>AI Analysis Result</h4>
-                  <div className="detail-grid">
-                    {result.analysis.analysis?.summary && (
-                      <div className="detail-field">
-                        <span className="detail-label">Summary</span>
-                        <span className="detail-value">{result.analysis.analysis.summary}</span>
-                      </div>
-                    )}
-                    {result.analysis.analysis?.risk_level && (
-                      <div className="detail-field">
-                        <span className="detail-label">Risk Level</span>
-                        <span className={`status-badge status-${result.analysis.analysis.risk_level}`}>
-                          {result.analysis.analysis.risk_level}
-                        </span>
-                      </div>
-                    )}
-                    {result.analysis.analysis?.document_type && (
-                      <div className="detail-field">
-                        <span className="detail-label">Document Type</span>
-                        <span className="detail-value">{result.analysis.analysis.document_type}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
+              {result.analysis && <AIReport response={result.analysis.analysis ?? result.analysis} title="Document analysis" />}
             </div>
           )}
         </div>

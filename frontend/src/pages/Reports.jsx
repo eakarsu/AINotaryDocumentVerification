@@ -14,13 +14,13 @@ export default function Reports() {
       api.get('/reports/activity').catch(() => ({ data: [] })),
     ]).then(([s, r, a]) => {
       setStats(s.data)
-      setRevenue(r.data)
-      setActivity(a.data)
+      setRevenue(Array.isArray(r.data) ? r.data : Array.isArray(r.data?.data) ? r.data.data : [])
+      setActivity(Array.isArray(a.data) ? a.data : Array.isArray(a.data?.data) ? a.data.data : [])
     })
   }, [])
 
-  const getTotal = (rows) => rows?.reduce((s, r) => s + parseInt(r.total || 0), 0) || 0
-  const getRevenue = (rows) => rows?.reduce((s, r) => s + parseFloat(r.revenue || 0), 0) || 0
+  const getTotal = (rows) => Array.isArray(rows) ? rows.reduce((s, r) => s + parseInt(r.total || 0), 0) : 0
+  const getRevenue = (rows) => Array.isArray(rows) ? rows.reduce((s, r) => s + parseFloat(r.revenue || 0), 0) : 0
 
   const typeIcons = { document: '📄', notarization: '🖋', payment: '💳', signature: '✍', client: '👤' }
   const typeColors = { document: '#2563eb', notarization: '#8b5cf6', payment: '#10b981', signature: '#22c55e', client: '#f97316' }

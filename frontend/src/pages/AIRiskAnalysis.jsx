@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import api from '../api/axios'
 import AIResultDisplay from '../components/AIResultDisplay'
+import FullFieldPresets from '../components/FullFieldPresets'
 
 const TOOLS = [
   { id: 'witness-vetting', label: 'Witness Vetting', endpoint: '/ai/witness-vetting' },
@@ -101,6 +102,13 @@ export default function AIRiskAnalysis() {
         ))}
       </div>
 
+      <FullFieldPresets value={{ witness, client, template, fee }} onChange={(next) => { setWitness(next.witness); setClient({ ...next.client, client_id: client.client_id }); setTemplate(next.template); setFee(next.fee); setResult(null); setError('') }} presets={[
+        { label: 'Routine example', values: { witness: { full_name: 'Morgan Lee', relationship_to_signer: 'Neighbor', id_type: 'State identification card', id_number: '', notes: 'Identity details are illustrative; confirm the original credential.' }, client: { full_name: 'Avery Chen', history_summary: 'First transaction; identity review pending.', transaction_value: '25000', flags: 'new client', client_id: '' }, template: { document_purpose: 'Property deed', jurisdiction: 'New York', parties: 'Grantor Morgan Lee; grantee Avery Chen', requirements: 'Confirm parcel description, witnesses, and acknowledgment.' }, fee: { document_type: 'Property deed', jurisdiction: 'New York', complexity: 'standard', target_margin: '0.25' } } },
+        { label: 'Complex example', values: { witness: { full_name: 'Taylor Brooks', relationship_to_signer: 'Business associate', id_type: 'Passport', id_number: '', notes: 'Check independence and original passport before proceeding.' }, client: { full_name: 'Jordan Rivera', history_summary: 'Multiple recent transactions; documentation requires review.', transaction_value: '180000', flags: 'large transaction, missing evidence', client_id: '' }, template: { document_purpose: 'Commercial power of attorney', jurisdiction: 'California', parties: 'Principal Jordan Rivera; agent Taylor Brooks', requirements: 'Review authority scope, effective date, and witness requirements.' }, fee: { document_type: 'Commercial power of attorney', jurisdiction: 'California', complexity: 'high', target_margin: '0.3' } } },
+        { label: 'Urgent example', values: { witness: { full_name: 'Casey Hall', relationship_to_signer: 'No known relationship', id_type: 'Driver license', id_number: '', notes: 'Rush appointment; verify identity and availability.' }, client: { full_name: 'Priya Shah', history_summary: 'Returning client; urgent request with limited supporting documents.', transaction_value: '75000', flags: 'rush, incomplete packet', client_id: '' }, template: { document_purpose: 'Affidavit', jurisdiction: 'Florida', parties: 'Affiant Priya Shah; witness Casey Hall', requirements: 'Confirm sworn statement and applicable notarial wording.' }, fee: { document_type: 'Affidavit', jurisdiction: 'Florida', complexity: 'rush', target_margin: '0.2' } } },
+      ]} />
+      {activeTool === 'client-risk-score' && <p>Client ID is optional and must refer to an existing client; examples preserve your current selection.</p>}
+      {activeTool === 'witness-vetting' && <p>Enter a genuine ID number after verifying the witness credential; examples leave it blank.</p>}
       <div className="ai-analysis-panel">
         {activeTool === 'witness-vetting' && (
           <>

@@ -1,3 +1,4 @@
+import AIReportLibrary from "./AIReportLibrary";
 import { NavLink } from 'react-router-dom'
 
 const menuItems = [
@@ -46,6 +47,6 @@ export default function Sidebar({ collapsed }) {
           </NavLink>
         ))}
       </div>
-    </aside>
+    <AIReportLibrary /></aside>
   )
 }

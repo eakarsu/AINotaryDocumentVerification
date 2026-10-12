@@ -21,9 +21,14 @@ export default function Login() {
     }
   }
 
+  const demoAvailable = import.meta.env.VITE_ENABLE_DEMO_CREDENTIAL_AUTOFILL === 'true'
+    && !!import.meta.env.VITE_DEMO_EMAIL && !!import.meta.env.VITE_DEMO_PASSWORD
+
   const handleDemoLogin = () => {
-    setEmail(import.meta.env.VITE_DEMO_EMAIL || '')
-    setPassword(import.meta.env.VITE_DEMO_PASSWORD || '')
+    if (!demoAvailable) return
+    setEmail(import.meta.env.VITE_DEMO_EMAIL)
+    setPassword(import.meta.env.VITE_DEMO_PASSWORD)
+    setError('')
   }
 
   return (
@@ -61,10 +66,11 @@ export default function Login() {
           <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
-          <button type="button" className="btn btn-demo btn-block" onClick={handleDemoLogin}>
-            Auto Fill Demo Credentials
+          <button type="button" className="btn btn-demo btn-block" onClick={handleDemoLogin} disabled={!demoAvailable || loading}>
+            Fill Demo Credentials
           </button>
         </form>
+        {!demoAvailable && <p className="login-demo-note">Demo credentials are not configured for this session.</p>}
         <div className="login-footer">
           <p>Secure AI-Powered Notary Platform</p>
         </div>

@@ -23,7 +23,7 @@ export default function JurisdictionRules() {
       const params = new URLSearchParams({ page, limit: pagination.limit })
       if (stateFilter) params.set('state', stateFilter)
       const res = await api.get(`/jurisdiction-rules?${params}`)
-      setData(res.data.data || [])
+      setData(Array.isArray(res.data?.data) ? res.data.data : Array.isArray(res.data) ? res.data : [])
       if (res.data.pagination) setPagination(res.data.pagination)
     } catch {
       setData([])

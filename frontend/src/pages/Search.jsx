@@ -40,7 +40,7 @@ export default function Search() {
     setSearched(true)
     try {
       const res = await api.get(`/search?q=${encodeURIComponent(query.trim())}`)
-      setResults(res.data.results || [])
+      setResults(Array.isArray(res.data?.results) ? res.data.results : [])
     } catch {
       setResults([])
     }

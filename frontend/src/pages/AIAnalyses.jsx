@@ -5,6 +5,7 @@ import DetailModal from '../components/DetailModal'
 import FormModal from '../components/FormModal'
 import DeleteConfirm from '../components/DeleteConfirm'
 import AIResultDisplay from '../components/AIResultDisplay'
+import FullFieldPresets from '../components/FullFieldPresets'
 
 const ENDPOINT = '/ai-analyses'
 
@@ -88,6 +89,11 @@ export default function AIAnalyses() {
       {showNewAnalysis && (
         <div className="ai-analysis-panel">
           <h3>Run AI Analysis</h3>
+          <FullFieldPresets value={{ analysisType, analysisContent }} onChange={(next) => { setAnalysisType(next.analysisType); setAnalysisContent(next.analysisContent); setAiResult(null) }} presets={[
+            { label: 'Deed summary', values: { analysisType: 'summary', analysisContent: 'Sample deed excerpt: Morgan Lee conveys 42 Oak Street to Avery Chen for $285,000. Execution requires signatures and acknowledgment. Review names, parcel details, and missing recording information.' } },
+            { label: 'Affidavit entities', values: { analysisType: 'entity_extraction', analysisContent: 'Sample affidavit: On April 12, 2026, Jordan Rivera of Albany, New York declared that the attached inventory was complete. Witness Taylor Brooks signed in the presence of notary Casey Hall.' } },
+            { label: 'Power of attorney summary', values: { analysisType: 'summary', analysisContent: 'Sample power of attorney excerpt: Priya Shah appoints Alex Morgan as agent for property and banking matters in New York. Effective upon signing; expires December 31, 2026. Check scope, dates, and required witnesses.' } },
+          ]} />
           <div className="form-group">
             <label className="form-label">Analysis Type</label>
             <select className="form-input" value={analysisType} onChange={(e) => setAnalysisType(e.target.value)}>

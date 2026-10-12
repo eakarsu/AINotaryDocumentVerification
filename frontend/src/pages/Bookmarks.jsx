@@ -22,7 +22,7 @@ export default function Bookmarks() {
   const navigate = useNavigate()
 
   const fetchBookmarks = useCallback(async () => {
-    try { const res = await api.get('/bookmarks'); setBookmarks(res.data) } catch { setBookmarks([]) }
+    try { const res = await api.get('/bookmarks'); setBookmarks(Array.isArray(res.data) ? res.data : Array.isArray(res.data?.data) ? res.data.data : []) } catch { setBookmarks([]) }
   }, [])
 
   useEffect(() => { fetchBookmarks() }, [fetchBookmarks])

@@ -3,10 +3,10 @@ import { useState, useMemo } from 'react'
 export default function DataTable({ columns, data, onRowClick, actions, exportName }) {
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(0)
-  const perPage = 10
+  const perPage = 20
 
   const filtered = useMemo(() => {
-    if (!data) return []
+    if (!Array.isArray(data)) return []
     if (!search.trim()) return data
     const s = search.toLowerCase()
     return data.filter((row) =>
